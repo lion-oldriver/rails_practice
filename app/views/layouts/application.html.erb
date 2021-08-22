@@ -9,7 +9,26 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column">
+    <header>
+      <nav class="navbar navbar-light">
+        <div class="container d-flex flex-column">
+          <h1 class="row">CARAVAN</h1>
+          <div class="row">
+            <% if user_signed_in? %>
+              <p class="nav-item"><%= link_to "Home",blogs_path,class:"text-reset" %></p>
+              <p class="nav-item"><%= link_to "About",about_path,class:"text-reset" %></p>
+              <p class="nav-item"><%= link_to "New",new_blog_path,class:"text-reset" %></p>
+              <p class="nav-item"><%= link_to "log out",destroy_user_session_path,method: :delete,class:"text-reset" %></p>
+            <% else %>
+              <p class="nav-item"><%= link_to "sign in",new_user_session_path,class:"text-reset" %></p>
+              <p class="nav-item"><%= link_to "sign up",new_user_registration_path,class:"text-reset" %></p>
+            <% end %>
+          </div>
+        </div>
+      </nav>
+    </header>
     <%= yield %>
+    <%= render partial: 'layouts/footer' %>
   </body>
 </html>

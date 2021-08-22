@@ -1,0 +1,14 @@
+<div>
+  <div>
+    <h2>Blog</h2>
+    <% @blogs.each do |blog| %>
+    <div>
+      <%= attachment_image_tag blog, :image, :fill,40,40 %>
+      <%=link_to blog_path(blog) do %>
+        <p><%= blog.title %></p>
+      <% end %>
+      <p><%= blog.user.name %></p>
+    </div>
+    <% end %>
+  </div>
+</div>

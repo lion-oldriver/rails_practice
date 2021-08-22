@@ -1,0 +1,14 @@
+<div>
+  <div>
+    <h2>blog</h2>
+    <%= @blog.title %>
+    <%= attachment_image_tag @blog, :image, :fill,300,250 %>
+    <%= @blog.body %>
+    <%= @blog.user.name %>
+    <%= link_to "トップページ",blogs_path %>
+    <% if @blog.user_id == current_user.id %>
+      <%= link_to "編集",edit_blog_path(@blog.id) %>
+      <%= link_to "削除",blog_path(@blog),method: :delete %>
+    <% end %>
+  </div>
+</div>
