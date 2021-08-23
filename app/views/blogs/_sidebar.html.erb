@@ -1,0 +1,17 @@
+<div class="col-md-3 offset-md-1 px-2">
+  <div>
+    <h2>Search</h2>
+  </div>
+  <div>
+    <h2 class="text-center">ユーザー一覧</h2>
+    <div class="d-flex flex-row flex-wrap">
+    <% users.each do |user| %>
+      <div class="w-50 px-1">
+        <%= link_to user_path(user) do %>
+          <%= attachment_image_tag user, :profile_image, :fill,60,60,fallback:"img/no_image.jpg", size:'60x60' %>
+        <% end %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,27 @@
-<%= @user.id %>
+<div class="row">
+  <div class="col-10 mx-auto">
+    <h2 class="text-center">ユーザー詳細</h2>
+    <div class="d-flex flex-row justify-content-center mx-auto my-4">
+      <div class="col-1"><%= attachment_image_tag @user, :profile_image, :fill,60,60 %></div>
+      <p class="col-2"><%= @user.name %></p>
+      <p class="col-8"><%= @user.introduction %></p>
+      <% if @user.id == current_user.id %>
+        <p><%=link_to "編集",edit_user_path(@user),class: "btn btn-success btn-sm" %></p>
+      <% end %>
+    </div>
+    <h2 class="text-center">投稿一覧</h2>
+    <% @user.blogs.each do |blog| %>
+    <div class="card w-50 d-flex flex-column mx-auto my-5 ">
+        <div><%= attachment_image_tag blog, :image, :fill,250,200,class: "card-img-top" %></div>
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= link_to blog_path(blog) do %>
+              <%= blog.title %>
+            <% end %>
+          </h5>
+          <p class="card-text"><%= blog.body %></p>
+        </div>
+    </div>
+    <% end %>
+  </div>
+</div>

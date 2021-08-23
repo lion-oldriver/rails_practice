@@ -1,14 +1,22 @@
-<div>
-  <div>
-    <h2>blog</h2>
-    <%= @blog.title %>
-    <%= attachment_image_tag @blog, :image, :fill,300,250 %>
-    <%= @blog.body %>
-    <%= @blog.user.name %>
-    <%= link_to "トップページ",blogs_path %>
-    <% if @blog.user_id == current_user.id %>
-      <%= link_to "編集",edit_blog_path(@blog.id) %>
-      <%= link_to "削除",blog_path(@blog),method: :delete %>
+<%= render "blogs/main-visual" %>
+<div class="row">
+  <div class="col-6">
+    <h2 class="text-center">blog</h2>
+    <div class="d-flex flex-column justify-content-center mx-auto my-4">
+      <p class="text-center"><%= @blog.title %></p>
+      <div class="mx-auto"><%= attachment_image_tag @blog, :image, :fill,500,400 %></div>
+      <p class="text-center"><%= @blog.body %></p>
+      <div class="d-flex flex-row">
+        <div><%= attachment_image_tag @user, :profile_image, :fill,60,60 %></div>
+        <p class="text-center"><%= @blog.user.name %></P>
+      </div>
+      <p class="text-center"><%= link_to "Back",blogs_path %></p>
+      <div class="d-flex flex-row justify-content-center">
+        <% if @blog.user_id == current_user.id %>
+        <%= link_to "編集",edit_blog_path(@blog.id),class: "btn btn-primary btn-sm mx-2" %>
+        <%= link_to "削除",blog_path(@blog),method: :delete,class: "btn btn-danger btn-sm mx-2" %>
+      </div>
     <% end %>
+    </div>
   </div>
 </div>

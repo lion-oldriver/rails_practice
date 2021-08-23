@@ -20,3 +20,20 @@
  .nav-item{
   margin:0 10px;
  }
+
+ .main-visual{
+  width:100%;
+  height:300px;
+  background-image:url(img/mv.jpg);
+  background-size:cover;
+  background-position:center;
+ }
+
+ .main-side-visual{
+  width:40%;
+  height:300px;
+  padding-top:100px;
+  text-align:center;
+  color:white;
+  background-color:rgba(0,0,0,0.5);
+ }

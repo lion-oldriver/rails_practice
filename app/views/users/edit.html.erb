@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-2 mb-3 mx-auto">
+    <h2>編集画面</h2>
+    <%= form_with model: @user,local: true do |f| %>
+      <div>
+        <label>名前</label><br />
+        <%= f.text_field :name %>
+      </div>
+      <div>
+        <label class="mt-2">プロフィール画像</label>
+        <%= f.attachment_field :profile_image %>
+      </div>
+      <div>
+        <label class="mt-2">自己紹介</label>
+        <%= f.text_area :introduction %>
+      </div>
+      <%= f.submit "変更を保存" ,class: "btn btn-success" %>
+    <% end %>
+  </div>
+</div>

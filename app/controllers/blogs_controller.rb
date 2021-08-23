@@ -12,10 +12,12 @@ class BlogsController < ApplicationController
 
   def index
     @blogs = Blog.all
+    @users = User.all
   end
 
   def show
     @blog = Blog.find(params[:id])
+    @user = User.find(@blog.user_id)
   end
 
   def edit
