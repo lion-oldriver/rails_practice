@@ -1,0 +1,13 @@
+<% if blog.favorited_by?(current_user) %>
+  <p>
+    <%= link_to blog_favorites_path(blog),method: :delete do %>
+      ♥<%= blog.favorites.count %>いいね
+    <% end %>
+  </p>
+<% else %>
+  <p>
+    <%= link_to blog_favorites_path(blog),method: :post do %>
+      ♡<%= blog.favorites.count %>いいね
+    <% end %>
+  </p>
+<% end %>

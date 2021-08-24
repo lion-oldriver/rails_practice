@@ -1,10 +1,10 @@
-<div class="col-md-3 offset-md-1 px-2">
+<div class="col-md-2 px-2">
   <div>
     <h2>Search</h2>
   </div>
   <div>
-    <h2 class="text-center">ユーザー一覧</h2>
-    <div class="d-flex flex-row flex-wrap">
+    <h2 class="text-center">ユーザー</h2>
+    <div class="d-flex flex-row flex-wrap col-9 mx-auto">
     <% users.each do |user| %>
       <div class="w-50 px-1">
         <%= link_to user_path(user) do %>

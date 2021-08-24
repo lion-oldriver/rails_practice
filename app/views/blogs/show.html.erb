@@ -1,11 +1,11 @@
 <%= render "blogs/main-visual" %>
-<div class="row">
-  <div class="col-6">
+<div class="row justify-content-center">
+  <div class="col-md-5">
     <h2 class="text-center">blog</h2>
     <div class="d-flex flex-column justify-content-center mx-auto my-4">
-      <p class="text-center"><%= @blog.title %></p>
-      <div class="mx-auto"><%= attachment_image_tag @blog, :image, :fill,500,400 %></div>
-      <p class="text-center"><%= @blog.body %></p>
+      <div class="text-center d-flex flex-row"><%= @blog.title %><%= render "favorites/favorite",blog:@blog %> </div>
+      <div class="mx-auto"><%= attachment_image_tag @blog, :image, style: "max-width:100%; height:auto;" %></div>
+      <p><%= @blog.body %></p>
       <div class="d-flex flex-row">
         <div><%= attachment_image_tag @user, :profile_image, :fill,60,60 %></div>
         <p class="text-center"><%= @blog.user.name %></P>
@@ -13,10 +13,30 @@
       <p class="text-center"><%= link_to "Back",blogs_path %></p>
       <div class="d-flex flex-row justify-content-center">
         <% if @blog.user_id == current_user.id %>
-        <%= link_to "編集",edit_blog_path(@blog.id),class: "btn btn-primary btn-sm mx-2" %>
-        <%= link_to "削除",blog_path(@blog),method: :delete,class: "btn btn-danger btn-sm mx-2" %>
+          <%= link_to "編集",edit_blog_path(@blog.id),class: "btn btn-primary btn-sm mx-2" %>
+          <%= link_to "削除",blog_path(@blog),method: :delete,class: "btn btn-danger btn-sm mx-2" %>
+        <% end %>
       </div>
-    <% end %>
+    </div>
+    <div>
+      <p>コメント件数: <%= @blog.blog_comments.count %></p>
+      <% @blog.blog_comments.each do |blog_comment| %>
+        <div class="d-flex flex-row">
+          <div><%= attachment_image_tag blog_comment.user, :profile_image, :fill,60,60 %></div>
+          <p><%= blog_comment.user.name %></p>
+          <p class="col-8"><%= blog_comment.comment %></p>
+          <% if blog_comment.user_id == current_user.id %>
+            <p><%= link_to "削除",blog_blog_comment_path(blog_comment.blog,blog_comment),method: :delete,class: "btn btn-danger btn-sm" %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div>
+      <%= form_with(model:[@blog,@blog_comment],local: true) do |f| %>
+        <%= f.text_area :comment %>
+        <%= f.submit "投稿",class: "btn btn-success" %>
+      <% end %>
     </div>
   </div>
+  <%= render "blogs/sidebar",users:@users %>
 </div>

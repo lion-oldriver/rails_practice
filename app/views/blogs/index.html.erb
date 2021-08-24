@@ -1,19 +1,20 @@
 <%= render "blogs/main-visual" %>
-<div class="row mx-auto">
-  <div class="col-md-8">
-    <h2 class="text-center">Blog</h2>
+<div class="row justify-content-center">
+  <div class="col-md-4">
+    <h2 class="text-center bg">Blog</h2>
     <% @blogs.each do |blog| %>
       <div class="d-flex flex-row justify-content-center mx-auto my-4">
-        <div class="col-9 p-0">
+        <div class="col-md-8 p-0">
           <%= attachment_image_tag blog, :image, :fill,250,200 %>
         </div>
-        <div class="col-6 p-0">
+        <div class="col-md-4 p-0">
           <%= link_to blog_path(blog) do %>
             <p><%= blog.title %></p>
           <% end %>
           <%= link_to user_path(blog.user.id) do %>
             <p><%= blog.user.name %></p>
           <% end %>
+          <%= blog.favorites.count %>いいね
         </div>
       </div>
     <% end %>

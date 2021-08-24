@@ -1,6 +1,13 @@
 <div class="row">
-  <div class="col-2 mb-3 mx-auto">
+  <div class="col-3 mb-3 mx-auto">
   <h2>新規投稿</h2>
+  <% if @blog.errors.any? %>
+    <%= @blog.errors.count %>件のエラーが発生しました<br />
+    <% @blog.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  <% end %>
+
   <%= form_with model: @blog,local: true do |f| %>
     <label>画像</label><br />
     <%= f.attachment_field :image %><br />
