@@ -1,0 +1,19 @@
+<div class="col-6 d-flex flex-column justify-content-center mx-auto">
+  <% blogs.each do |blog| %>
+    <div class="card shadow mb-3">
+      <div class="text-center d-flex flex-row">
+        <%= blog.title %>
+        <p id="favorite_<%= blog.id %>">
+          <%= render "favorites/favorite",blog:blog %>
+        </p>
+      </div>
+      <div class="mx-auto"><%= attachment_image_tag blog, :image, style: "max-width:100%; height:auto;" %></div>
+      <p><%= blog.body %></p>
+      <div class="d-flex flex-row">
+        <div><%= attachment_image_tag blog.user, :profile_image, :fill,60,60 %></div>
+        <p class="text-center"><%= blog.user.name %></P>
+      </div>
+    </div>
+  <% end %>
+  <%= paginate blogs %>
+</div>

@@ -6,7 +6,9 @@
       <p class="col-2"><%= @user.name %></p>
       <p class="col-8"><%= @user.introduction %></p>
       <% if @user.id == current_user.id %>
-        <p><%=link_to "編集",edit_user_path(@user),class: "btn btn-success btn-sm" %></p>
+        <p class="col-1"><%=link_to "編集",edit_user_path(@user),class: "btn btn-success btn-sm" %></p>
+      <% else %>
+        <p><%= render 'relationships/follow_button', user:@user %></p>
       <% end %>
     </div>
     <h2 class="text-center">投稿一覧</h2>

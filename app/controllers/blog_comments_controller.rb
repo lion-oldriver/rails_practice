@@ -5,14 +5,12 @@ class BlogCommentsController < ApplicationController
     @blog_comment.user_id = current_user.id
     @blog_comment.blog_id = @blog.id
     @blog_comment.save
-    redirect_to blog_path(@blog)
   end
 
   def destroy
     @blog = Blog.find(params[:blog_id])
     blog_comment = @blog.blog_comments.find(params[:id])
     blog_comment.destroy
-    redirect_to blog_path(@blog)
   end
 
 

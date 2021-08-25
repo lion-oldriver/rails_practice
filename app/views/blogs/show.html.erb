@@ -3,7 +3,12 @@
   <div class="col-md-5">
     <h2 class="text-center">blog</h2>
     <div class="d-flex flex-column justify-content-center mx-auto my-4">
-      <div class="text-center d-flex flex-row"><%= @blog.title %><%= render "favorites/favorite",blog:@blog %> </div>
+      <div class="text-center d-flex flex-row">
+        <%= @blog.title %>
+        <p id="favorite_<%= @blog.id %>">
+          <%= render "favorites/favorite",blog:@blog %>
+        </p>
+      </div>
       <div class="mx-auto"><%= attachment_image_tag @blog, :image, style: "max-width:100%; height:auto;" %></div>
       <p><%= @blog.body %></p>
       <div class="d-flex flex-row">
@@ -19,20 +24,11 @@
       </div>
     </div>
     <div>
-      <p>コメント件数: <%= @blog.blog_comments.count %></p>
-      <% @blog.blog_comments.each do |blog_comment| %>
-        <div class="d-flex flex-row">
-          <div><%= attachment_image_tag blog_comment.user, :profile_image, :fill,60,60 %></div>
-          <p><%= blog_comment.user.name %></p>
-          <p class="col-8"><%= blog_comment.comment %></p>
-          <% if blog_comment.user_id == current_user.id %>
-            <p><%= link_to "削除",blog_blog_comment_path(blog_comment.blog,blog_comment),method: :delete,class: "btn btn-danger btn-sm" %></p>
-          <% end %>
-        </div>
-      <% end %>
+      <p id="comment_count_<%= @blog.id %>">コメント件数: <%= @blog.blog_comments.count %></p>
+      <div id="comment_index"><%= render "blog_comments/comment", blog:@blog %></div>
     </div>
     <div>
-      <%= form_with(model:[@blog,@blog_comment],local: true) do |f| %>
+      <%= form_with model:[@blog,@blog_comment] do |f| %>
         <%= f.text_area :comment %>
         <%= f.submit "投稿",class: "btn btn-success" %>
       <% end %>

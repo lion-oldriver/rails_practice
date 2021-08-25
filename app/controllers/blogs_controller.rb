@@ -14,8 +14,8 @@ class BlogsController < ApplicationController
   end
 
   def index
-    @blogs = Blog.all
-    @users = User.all
+    @blogs = Blog.all.page(params[:page]).per(5).reverse_order
+    @users = current_user.followings
   end
 
   def show
