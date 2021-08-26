@@ -22,7 +22,7 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
     @blog_comment = BlogComment.new
     @user = User.find(@blog.user_id)
-    @users = User.all
+    @users = current_user.followings
   end
 
   def edit

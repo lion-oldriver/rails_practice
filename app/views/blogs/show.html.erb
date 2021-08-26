@@ -13,7 +13,12 @@
       <p><%= @blog.body %></p>
       <div class="d-flex flex-row">
         <div><%= attachment_image_tag @user, :profile_image, :fill,60,60 %></div>
-        <p class="text-center"><%= @blog.user.name %></P>
+        <div class="col-2">
+          <%= link_to user_path(@blog.user_id) do %>
+            <%= @blog.user.name %>
+          <% end %>
+        </div>
+        <div class="col-8"><%= @blog.user.introduction %></div>
       </div>
       <p class="text-center"><%= link_to "Back",blogs_path %></p>
       <div class="d-flex flex-row justify-content-center">
