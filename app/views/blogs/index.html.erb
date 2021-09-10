@@ -2,19 +2,19 @@
 <div class="row justify-content-center">
   <div class="col-md-4">
     <h2 class="text-center">Blog</h2>
+    <%= link_to '新着順', blogs_path %> |
+    <%= link_to '評価の高い順', blogs_path(sort: 'evaluations') %>
     <% @blogs.each do |blog| %>
       <div class="d-flex flex-row justify-content-center mx-auto my-4">
         <div class="col-md-8 p-0">
           <%= attachment_image_tag blog, :image, :fill,250,200 %>
         </div>
         <div class="col-md-4 p-0">
-          <%= link_to blog_path(blog) do %>
-            <p><%= blog.title %></p>
-          <% end %>
-          <%= link_to user_path(blog.user.id) do %>
-            <p><%= blog.user.name %></p>
-          <% end %>
-          <%= blog.favorites.count %>いいね
+          <p><%= link_to blog.title, blog_path(blog) %></p>
+          <p><%= link_to blog.user.name, user_path(blog.user.id) %></p>
+          <p><%= blog.favorites.count %>いいね</p>
+          <p id="blog-evaluation-<%= blog.id %>"></p>
+            <%= render 'blogs/star', blog:blog %>
         </div>
       </div>
     <% end %>

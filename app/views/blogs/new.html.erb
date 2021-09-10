@@ -9,12 +9,30 @@
   <% end %>
 
   <%= form_with model: @blog,local: true do |f| %>
-    <label>画像</label><br />
-    <%= f.attachment_field :image %><br />
-    <label class="mt-2">タイトル</label><br />
-    <%= f.text_field :title %><br />
-    <label class="mt-2">本文</label><br />
-    <%= f.text_area :body %>
+    <div class="form-group">
+      <%= f.label :画像 %>
+      <%= f.attachment_field :image %>
+    </div>
+    <div class="form-group">
+      <%= f.label :タイトル %><br />
+      <%= f.text_field :title %>
+    </div>
+    <div class="form-group">
+      <%= f.label :本文 %><br />
+      <%= f.text_area :body %>
+    </div>
+    <div id="evaluate_stars">
+      <lable>評価</lable>
+      <script>
+        $('#evaluate_stars').raty({
+          starOn: "<%= asset_path('star-on.png') %>",
+          starOff: "<%= asset_path('star-off.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          half: true,
+          scoreName: "blog[evaluation]"
+        });
+      </script>
+    </div>
     <%= f.submit "投稿" %>
   <% end %>
   </div>

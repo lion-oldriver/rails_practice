@@ -14,7 +14,11 @@ class BlogsController < ApplicationController
   end
 
   def index
-    @blogs = Blog.all.page(params[:page]).per(5).reverse_order
+    if params[:sort] == 'evaluations'
+      @blogs = Blog.evaluations.page.per(5)
+    else
+      @blogs = Blog.all.page(params[:page]).per(5).reverse_order
+    end
     @users = current_user.followings
   end
 
@@ -44,7 +48,7 @@ class BlogsController < ApplicationController
 
   private
   def blog_params
-    params.require(:blog).permit(:image,:title,:body)
+    params.require(:blog).permit(:image, :title, :body, :evaluation)
   end
 
 end

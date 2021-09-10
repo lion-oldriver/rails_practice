@@ -2,11 +2,13 @@
 <div class="row justify-content-center">
   <div class="col-md-5">
     <h2 class="text-center">blog</h2>
-    <div class="d-flex flex-column justify-content-center mx-auto my-4">
+    <div class="d-flex flex-column justify-content-center mx-auto my-4 card bg-light shadow">
       <div class="text-center d-flex flex-row">
         <%= @blog.title %>
         <p id="favorite_<%= @blog.id %>">
           <%= render "favorites/favorite",blog:@blog %>
+        <p id="blog-evaluation-<%= @blog.id %>"></p>
+          <%= render 'blogs/star', blog:@blog %>
         </p>
       </div>
       <div class="mx-auto"><%= attachment_image_tag @blog, :image, style: "max-width:100%; height:auto;" %></div>
