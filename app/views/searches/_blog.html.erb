@@ -1,13 +1,17 @@
-<div class="col-6 d-flex flex-column justify-content-center mx-auto">
+<div class="col-8 d-flex flex-wrap mx-auto">
   <% blogs.each do |blog| %>
-    <div class="card shadow mb-3">
+    <div class="col-5 card shadow m-4">
       <div class="text-center d-flex flex-row">
         <%= blog.title %>
-        <p id="favorite_<%= blog.id %>">
-          <%= render "favorites/favorite",blog:blog %>
-        </p>
+        <p id="favorite_<%= blog.id %>"></p>
+          <%= render "favorites/favorite", blog:blog %>
       </div>
-      <div class="mx-auto"><%= attachment_image_tag blog, :image, style: "max-width:100%; height:auto;" %></div>
+      <div class="mx-auto"><%= attachment_image_tag blog, :image, style: "max-width:100%; height:300px;" %></div>
+      <div class="d-flex">
+        <p><%= link_to blog.category, search_path(:model => "category", :method => "perfect", :content => blog.category ), class:"btn btn-sm btn-secondary" %></p>
+        <p id="blog-evaluation-<%= blog.id %>"></p>
+          <%= render 'blogs/star', blog:blog %>
+      </div>
       <p><%= blog.body %></p>
       <div class="d-flex flex-row">
         <div><%= attachment_image_tag blog.user, :profile_image, :fill,60,60 %></div>

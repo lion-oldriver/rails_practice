@@ -1,11 +1,12 @@
 <%= render "blogs/main-visual" %>
 <div class="row justify-content-center">
   <div class="col-md-4">
-    <h2 class="text-center">Blog</h2>
+    <h2 class="text-center">Blog<%=@count%></h2>
     <%= link_to '新着順', blogs_path %> |
-    <%= link_to '評価の高い順', blogs_path(sort: 'evaluations') %>
+    <%= link_to '評価の高い順', blogs_path(sort: 'evaluations') %> |
+    <%= link_to '一週間のいいね順', blogs_path(sort: 'favorite') %>
     <% @blogs.each do |blog| %>
-      <div class="d-flex flex-row justify-content-center mx-auto my-4">
+      <div class="card d-flex flex-row justify-content-center mx-auto my-4">
         <div class="col-md-8 p-0">
           <%= attachment_image_tag blog, :image, :fill,250,200 %>
         </div>
@@ -15,10 +16,13 @@
           <p><%= blog.favorites.count %>いいね</p>
           <p id="blog-evaluation-<%= blog.id %>"></p>
             <%= render 'blogs/star', blog:blog %>
+          <p class="text-right mr-1">
+            <%= link_to blog.category, search_path(:model => "category", :method => "perfect", :content => blog.category ), class:"btn btn-sm btn-secondary" %>
+          </p>
         </div>
       </div>
     <% end %>
     <%= paginate @blogs %>
   </div>
-  <%= render "blogs/sidebar",users:@users %>
+  <%= render "blogs/sidebar",users:@users, categories:@categories %>
 </div>

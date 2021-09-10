@@ -16,15 +16,19 @@ class BlogsController < ApplicationController
   def index
     if params[:sort] == 'evaluations'
       @blogs = Blog.evaluations.page.per(5)
+    elsif params[:sort] == 'favorite'
+      @blogs = Blog.last_week.page.per(5)
     else
       @blogs = Blog.all.page(params[:page]).per(5).reverse_order
     end
+    @categories = Blog.group(:category).count
     @users = current_user.followings
   end
 
   def show
     @blog = Blog.find(params[:id])
     @blog_comment = BlogComment.new
+    @categories = Blog.group(:category).count
     @user = User.find(@blog.user_id)
     @users = current_user.followings
   end
@@ -48,7 +52,7 @@ class BlogsController < ApplicationController
 
   private
   def blog_params
-    params.require(:blog).permit(:image, :title, :body, :evaluation)
+    params.require(:blog).permit(:image, :title, :body, :evaluation, :category)
   end
 
 end

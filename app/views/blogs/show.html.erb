@@ -3,12 +3,15 @@
   <div class="col-md-5">
     <h2 class="text-center">blog</h2>
     <div class="d-flex flex-column justify-content-center mx-auto my-4 card bg-light shadow">
-      <div class="text-center d-flex flex-row">
+      <div class="text-center d-flex flex-row mt-1">
         <%= @blog.title %>
         <p id="favorite_<%= @blog.id %>">
           <%= render "favorites/favorite",blog:@blog %>
         <p id="blog-evaluation-<%= @blog.id %>"></p>
           <%= render 'blogs/star', blog:@blog %>
+        <p class="text-right ml-auto mr-1">
+          <%= link_to @blog.category, search_path(:model => "category", :method => "perfect", :content => @blog.category ), class:"btn btn-sm btn-secondary" %>
+        </p>
         </p>
       </div>
       <div class="mx-auto"><%= attachment_image_tag @blog, :image, style: "max-width:100%; height:auto;" %></div>
@@ -41,5 +44,5 @@
       <% end %>
     </div>
   </div>
-  <%= render "blogs/sidebar",users:@users %>
+  <%= render "blogs/sidebar", users:@users, categories:@categories %>
 </div>

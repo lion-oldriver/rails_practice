@@ -15,4 +15,18 @@
     <% end %>
     </div>
   </div>
+  <div class="mt-3">
+    <h2>カテゴリ</h2>
+    <table class="table">
+      <tbody>
+        <% categories.each do |category| %>
+        <tr>
+          <td>
+            <%= link_to category.first, search_path(:model => "category", :method => "perfect", :content => category.first ) %> (<%= category.second %>)
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -13,5 +13,9 @@ class Blog < ApplicationRecord
     favorites.where(user_id: user.id).exists?
   end
 
+  def self.last_week
+    Blog.joins(:favorites).where(favorites: {created_at: 6.days.ago.beginning_of_day..Time.current}).group(:blog_id).order("count(*) desc")
+  end
+
   scope :evaluations, -> { order(evaluation: :desc) }
 end

@@ -27,6 +27,16 @@ class SearchesController < ApplicationController
       else
         Blog.where('title LIKE ?', '%'+content+'%')
       end
+    elsif model == "category"
+      if method == 'perfect'
+        Blog.where(category: content)
+      elsif method == 'forward_match'
+        Blog.where('category LIKE ?', content+'%')
+      elsif method == 'rear_match'
+        Blog.where('category LIKE ?', '%'+content)
+      else
+        Blog.where('category LIKE ?', '%'+content+'%')
+      end
     end
   end
 end
