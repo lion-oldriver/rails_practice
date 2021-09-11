@@ -20,10 +20,10 @@
       <td>フォロワー数<%= user.followers.count %></td>
       <td>
         <% unless user == current_user %>
-          <%= render "relationships/follow_button",user:user %>
+          <%= render "relationships/follow_button", user:user %>
         <% end %>
       </td>
-      <td><%= link_to "show",user_path(user) %></td>
+      <td><%= link_to "show", user_path(user) %></td>
     </tr>
     <% end %>
   </tbody>

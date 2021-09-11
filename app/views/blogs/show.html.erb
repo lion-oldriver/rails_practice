@@ -6,7 +6,7 @@
       <div class="text-center d-flex flex-row mt-1">
         <%= @blog.title %>
         <p id="favorite_<%= @blog.id %>">
-          <%= render "favorites/favorite",blog:@blog %>
+          <%= render "favorites/favorite", blog:@blog %>
         <p id="blog-evaluation-<%= @blog.id %>"></p>
           <%= render 'blogs/star', blog:@blog %>
         <p class="text-right ml-auto mr-1">
@@ -28,8 +28,8 @@
       <p class="text-center"><%= link_to "Back",blogs_path %></p>
       <div class="d-flex flex-row justify-content-center">
         <% if @blog.user_id == current_user.id %>
-          <%= link_to "編集",edit_blog_path(@blog.id),class: "btn btn-primary btn-sm mx-2" %>
-          <%= link_to "削除",blog_path(@blog),method: :delete,class: "btn btn-danger btn-sm mx-2" %>
+          <%= link_to "編集",edit_blog_path(@blog.id), class: "btn btn-primary btn-sm mx-2" %>
+          <%= link_to "削除",blog_path(@blog),method: :delete, class: "btn btn-danger btn-sm mx-2" %>
         <% end %>
       </div>
     </div>
