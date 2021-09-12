@@ -13,6 +13,13 @@ class UsersController < ApplicationController
     redirect_to user_path(@user.id)
   end
 
+  def hide
+    @user = User.find(params[:id])
+    @user.update(is_deleted: true)
+    reset_session
+    redirect_to about_path
+  end
+
 
   private
   def user_params

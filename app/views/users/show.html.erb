@@ -7,6 +7,7 @@
       <p class="col-8"><%= @user.introduction %></p>
       <% if @user.id == current_user.id %>
         <p class="col-1"><%=link_to "編集",edit_user_path(@user),class: "btn btn-success btn-sm" %></p>
+        <%= link_to "退会", users_hide_path(current_user), method: :put, "data-confirm" => "本当に退会しますか？", class:"btn btn-sm btn-danger" %>
       <% else %>
         <p id="follow_button"><%= render 'relationships/follow_button', user:@user %></p>
       <% end %>
