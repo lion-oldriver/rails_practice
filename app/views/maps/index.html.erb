@@ -1,0 +1,18 @@
+<h1>Map</h1>
+<%= form_with url: map_request_path, method: :get do |f| %>
+  <%= f.text_field :address %>
+  <%= f.submit '地図表示' %>
+<% end %>
+
+<div id="map" style="height: 400px;"></div>
+
+<script>
+  let mapInstance
+  function initMap(){
+    mapInstance = new google.maps.Map(document.getElementById('map'),{
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 15
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['API_KEY'] %>&callback=initMap" async defer></script>

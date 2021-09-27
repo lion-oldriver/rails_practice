@@ -1,0 +1,41 @@
+<h1>Places#show</h1>
+<%= @place.address %>
+<p>a<%= @place.latitude %></p>
+<%= form_with model: @place, local: true do |f| %>
+  <%= f.text_area :address %>
+  <%= f.submit '変更' %>
+<% end %>
+
+
+<div id="map" style="height: 500px;"></div>
+<script>
+  let map;
+
+  function initMap() {
+    // geocoderを初期化
+    geocoder = new google.maps.Geocoder()
+
+    map = new google.maps.Map(document.getElementById('map'), {
+      // コントローラーで定義した変数から緯度経度を呼び出し、マップの中心に表示
+      center: {
+        lat: gon.place.latitude,
+        lng: gon.place.longitude
+      },
+      // マップの倍率はお好みで
+      zoom: 17,
+    });
+
+    marker = new google.maps.Marker({
+      // コントローラーで定義した変数から緯度経度を呼び出し、マーカーを立てる
+      position: {
+        lat: gon.place.latitude,
+        lng: gon.place.longitude
+      },
+      map: map
+    });
+  }
+</script>
+
+<script async defer
+      src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['API_KEY'] %>&callback=initMap">
+</script>

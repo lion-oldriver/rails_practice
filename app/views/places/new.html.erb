@@ -1,0 +1,6 @@
+<h1>Places#new</h1>
+<%= form_with model: @place, local: true do |f| %>
+  <%= f.text_area :address %>
+  <%= f.submit '送信' %>
+<% end %>
+

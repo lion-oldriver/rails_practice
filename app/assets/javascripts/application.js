@@ -16,7 +16,7 @@
 
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
+// require turbolinks
 //= require jquery
 //= require jcanvas
 //= require_tree .
@@ -73,7 +73,7 @@ $(function(){
         fontSize : 11,
         fontShadowColor : "white",
         onSelect : function(data){
-            alert(data.name);
+            window.location.href = "https://3e15522904e9470d9d22bd9a9068e2c7.vfs.cloud9.us-east-1.amazonaws.com/search?content=" + data.name + "&method=perfect&model=category";
         }
     });
 });

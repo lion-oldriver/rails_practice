@@ -5,6 +5,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <!--japanmap追加-->
+    <%= include_gon %>
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <%= javascript_include_tag 'jquery.japan-map.min.js' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
