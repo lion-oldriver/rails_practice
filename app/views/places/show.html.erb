@@ -9,33 +9,89 @@
 
 <div id="map" style="height: 500px;"></div>
 <script>
-  let map;
+  var map;
+  var marker = [];
+  var infoWindow = [];
+  var place_name = [];
+  var place_lat = [];
+  var place_lng = [];
+  var markerData = gon.places;
 
   function initMap() {
     // geocoderを初期化
     geocoder = new google.maps.Geocoder()
-
+    // 詳細ページで見ている場所をマップの中心に表示
     map = new google.maps.Map(document.getElementById('map'), {
-      // コントローラーで定義した変数から緯度経度を呼び出し、マップの中心に表示
       center: {
         lat: gon.place.latitude,
         lng: gon.place.longitude
       },
-      // マップの倍率はお好みで
       zoom: 17,
     });
-
+    // 詳細ページで見ている場所にマーカーを立てる
     marker = new google.maps.Marker({
-      // コントローラーで定義した変数から緯度経度を呼び出し、マーカーを立てる
       position: {
         lat: gon.place.latitude,
         lng: gon.place.longitude
       },
       map: map
     });
+
+    // 半径1km以内の登録された場所のデータを繰り返し処理で取得
+    for (var i = 0; i < markerData.length; i++) {
+      markerLatLng = new google.maps.LatLng({
+        lat: markerData[i]['latitude'],
+        lng: markerData[i]['longitude']
+      });
+      // 付近の登録された場所にマーカーを立てる
+      marker[i] = new google.maps.Marker({
+        position: markerLatLng,
+        map: map
+      });
+      // マーカーをクリックしたときに出る吹き出しを設定
+      let id = markerData[i]['id']
+      infoWindow[i] = new google.maps.InfoWindow({
+        // 吹き出しの内容、クリックするとその場所のページに飛ぶ
+        content: `<a href='/places/${ id }'>${ markerData[i]['address'] }</a>`
+      });
+      markerEvent(i);
+      // 経路検索、距離、時間の取得
+      // 出発地点、詳細ページで見ている場所
+      var origin = new google.maps.LatLng({
+        lat: gon.place.latitude,
+        lng: gon.place.longitude
+      });
+      // 目的地、付近の登録された場所
+      var destination = markerLatLng
+      // リクエストの作成、徒歩で移動
+      var request = {
+        origin:      origin,
+        destination: destination,
+        travelMode:  google.maps.TravelMode.WALKING
+      };
+      // ルート検索、ルートの経路は非表示
+      new google.maps.DirectionsService().route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          new google.maps.DirectionsRenderer({
+            map: map,
+            suppressMarkers : true,
+          })
+          // 距離と時間を表示
+          var data = response.routes[0].legs;
+          for (var i = 0; i < data.length; i++) {
+            var distance = data[i].distance.text;  //距離
+            var duration = data[i].duration.text;  //時間
+          }
+        }
+      })
+    }
+    // マーカークリック時の挙動を設定
+    function markerEvent(i) {
+      marker[i].addListener('click', function () {
+      infoWindow[i].open(map, marker[i]);
+      });
+    }
   }
 </script>
 
-<script async defer
-      src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['API_KEY'] %>&callback=initMap">
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['API_KEY'] %>&callback=initMap" async defer></script>
