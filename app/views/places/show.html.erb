@@ -5,17 +5,18 @@
   <%= f.text_area :address %>
   <%= f.submit '変更' %>
 <% end %>
-
+<% @count.times do %>
+  <div id="sampleArea"></div>
+<% end %>
 
 <div id="map" style="height: 500px;"></div>
 <script>
   var map;
   var marker = [];
   var infoWindow = [];
-  var place_name = [];
-  var place_lat = [];
-  var place_lng = [];
   var markerData = gon.places;
+  var near = [];
+  var nearPlace = [];
 
   function initMap() {
     // geocoderを初期化
@@ -63,11 +64,11 @@
       });
       // 目的地、付近の登録された場所
       var destination = markerLatLng
-      // リクエストの作成、徒歩で移動
+      // リクエストの作成、車で移動
       var request = {
         origin:      origin,
         destination: destination,
-        travelMode:  google.maps.TravelMode.WALKING
+        travelMode:  google.maps.TravelMode.DRIVING
       };
       // ルート検索、ルートの経路は非表示
       new google.maps.DirectionsService().route(request, function(response, status) {
@@ -78,10 +79,17 @@
           })
           // 距離と時間を表示
           var data = response.routes[0].legs;
-          for (var i = 0; i < data.length; i++) {
-            var distance = data[i].distance.text;  //距離
-            var duration = data[i].duration.text;  //時間
+          for (var j = 0; j < data.length; j++) {
+            near.push(data[j].distance.text);  //距離
+            near.push(data[j].duration.text);  //時間
           }
+          nearPlace.push(near)
+          console.log(near)
+          var a = nearPlace.length - 1
+          console.log(a)
+          var sampleArea = document.getElementById("sampleArea");
+            sampleArea.insertAdjacentHTML("afterbegin", near);
+            near = [];
         }
       })
     }

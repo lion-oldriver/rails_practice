@@ -18,6 +18,7 @@ class PlacesController < ApplicationController
   def show
     @place = Place.find(params[:id])
     @places = @place.nearbys(1, units: :km)
+    @count = @places.length
     gon.place = @place
     gon.places = @places
   end
