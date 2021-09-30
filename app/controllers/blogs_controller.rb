@@ -23,6 +23,10 @@ class BlogsController < ApplicationController
     end
     @categories = Blog.group(:category).count
     @users = current_user.followings
+    @tags = Blog.tag_counts_on(:tags).order('count DESC')
+    if @tag = params[:tag]
+      @blogs = Blog.tagged_with(params[:tag])
+    end
   end
 
   def show
@@ -31,6 +35,7 @@ class BlogsController < ApplicationController
     @categories = Blog.group(:category).count
     @user = User.find(@blog.user_id)
     @users = current_user.followings
+    @tags = @blog.tag_counts_on(:tags)
   end
 
   def edit
@@ -52,7 +57,7 @@ class BlogsController < ApplicationController
 
   private
   def blog_params
-    params.require(:blog).permit(:image, :title, :body, :evaluation, :category)
+    params.require(:blog).permit(:image, :title, :body, :evaluation, :category, :tag_list)
   end
 
 end

@@ -1,4 +1,5 @@
 class Blog < ApplicationRecord
+  acts_as_taggable
 
   belongs_to :user
   has_many :blog_comments, dependent: :destroy

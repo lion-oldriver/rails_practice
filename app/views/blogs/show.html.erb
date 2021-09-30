@@ -10,7 +10,9 @@
         <p id="blog-evaluation-<%= @blog.id %>"></p>
           <%= render 'blogs/star', blog:@blog %>
         <p class="text-right ml-auto mr-1">
-          <%= link_to @blog.category, search_path(:model => "category", :method => "perfect", :content => @blog.category ), class:"btn btn-sm btn-secondary" %>
+          <% @tags.each do |tag|%>
+            <%= link_to "#{tag.name}(#{tag.taggings_count})", blogs_path(tag: tag.name) %>/
+          <% end %>
         </p>
         </p>
       </div>

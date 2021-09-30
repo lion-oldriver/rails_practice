@@ -21,7 +21,7 @@
 //= require jcanvas
 //= require_tree .
 
-$(document).on('turbolinks:load', function () {
+$(document).ready(function () {
   $("#images").skippr({
     // スライドショーの変化 ("fade" or "slide")
     transition : 'fade',
