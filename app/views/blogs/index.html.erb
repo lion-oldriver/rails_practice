@@ -18,7 +18,7 @@
             <%= render 'blogs/star', blog:blog %>
           <p class="text-right mr-1">
             <!--%= link_to blog.category, search_path(:model => "category", :method => "perfect", :content => blog.category ), class:"btn btn-sm btn-secondary" %>-->
-            <% @tags.each do |tag|%>
+            <% blog.tag_list.each do |tag|%>
             <%= tag %>/
           <% end %>
           </p>
