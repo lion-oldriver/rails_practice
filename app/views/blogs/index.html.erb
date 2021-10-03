@@ -17,15 +17,12 @@
           <p id="blog-evaluation-<%= blog.id %>"></p>
             <%= render 'blogs/star', blog:blog %>
           <p class="text-right mr-1">
-            <!--%= link_to blog.category, search_path(:model => "category", :method => "perfect", :content => blog.category ), class:"btn btn-sm btn-secondary" %>-->
-            <% blog.tag_list.each do |tag|%>
-            <%= tag %>/
-          <% end %>
+            <%= link_to blog.category, search_path(:model => "category", :method => "perfect", :content => blog.category ), class:"btn btn-sm btn-secondary" %>
           </p>
         </div>
       </div>
     <% end %>
-    <!--%= paginate @blogs %>-->
+    <%= paginate @blogs %>
   </div>
   <%= render "blogs/sidebar",users:@users, categories:@categories %>
 </div>

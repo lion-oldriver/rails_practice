@@ -10,13 +10,15 @@
         <p id="blog-evaluation-<%= @blog.id %>"></p>
           <%= render 'blogs/star', blog:@blog %>
         <p class="text-right ml-auto mr-1">
-          <% @tags.each do |tag|%>
-            <%= link_to "#{tag.name}(#{tag.taggings_count})", blogs_path(tag: tag.name) %>/
-          <% end %>
+          <%= link_to @blog.category, search_path(:model => "category", :method => "perfect", :content => @blog.category ), class:"btn btn-sm btn-secondary" %>
         </p>
         </p>
       </div>
-      <div class="mx-auto"><%= attachment_image_tag @blog, :image, style: "max-width:100%; height:auto;" %></div>
+      <div class="mx-auto">
+        <% @blog.blog_files.each do |image| %>
+          <%= attachment_image_tag image, :image, style: "max-width:100%; height:auto;" %>
+        <% end %>
+      </div>
       <p><%= @blog.body %></p>
       <div class="d-flex flex-row">
         <div><%= attachment_image_tag @user, :profile_image, :fill,60,60 %></div>

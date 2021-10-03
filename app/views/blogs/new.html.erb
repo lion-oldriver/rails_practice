@@ -11,7 +11,7 @@
   <%= form_with model: @blog,local: true do |f| %>
     <div class="form-group">
       <%= f.label :画像 %>
-      <%= f.attachment_field :image %>
+      <%= f.attachment_field :blog_files_images, multiple: true %>
     </div>
     <div class="form-group">
       <%= f.label :タイトル %><br />
@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
       <%= f.label :カテゴリ %>
-      <%= f.text_field :tag_list, value: @blog.tag_list.join(',') %>
+      <%= f.text_field :category %>
     </div>
     <div id="evaluate_stars">
       <lable>評価</lable>
