@@ -120,6 +120,9 @@ describe 'ユーザログイン後のテスト' do
       it '新規投稿の文字があるか' do
         expect(page).to have_content '新規投稿'
       end
+      it '画像(複数)投稿フォームがあるか' do
+        expect(page).to have_field 'blog[blog_files_images][]'
+      end
       it 'titleフォームがあるか' do
         expect(page).to have_field 'blog[title]'
       end
@@ -207,6 +210,38 @@ describe 'ユーザログイン後のテスト' do
       end
       it 'リダイレクト先が更新した投稿の詳細画面になっているか' do
         expect(current_path).to eq '/blogs/' + blog.id.to_s
+      end
+    end
+  end
+  
+  describe '自分のユーザ詳細画面のテスト' do
+    before do
+      visit user_path(user)
+    end
+    
+    context '表示のテスト' do
+      it 'urlが正しい' do
+        expect(current_path).to eq '/users/' + user.id.to_s
+      end
+      it '自分の名前と紹介文が表示される' do
+        expect(page).to have_content user.name
+        expect(page).to have_content user.introduction
+      end
+      it '投稿一覧に自分の投稿のtitleが表示され、リンクが正しい' do
+        expect(page).to have_link blog.title, href: blog_path(blog)
+      end
+      it '投稿一覧に自分の投稿のbodyが表示される' do
+        expect(page).to have_content blog.body
+      end
+      it '投稿一覧に他の人の投稿が表示されない' do
+        expect(page).not_to have_link other_blog.title
+        expect(page).not_to have_link other_blog.body
+      end
+      it '編集のリンクが表示されているか' do
+        expect(page).to have_link '編集', href: edit_user_path(user)
+      end
+      it '退会のリンクが表示されているか' do
+        expect(page).to have_link '退会', href: users_hide_path(user)
       end
     end
   end
